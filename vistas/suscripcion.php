@@ -34,35 +34,13 @@ $precio = 10.00; // 10 USD por ejemplo
         .price {
             font-size: 2.5rem;
             font-weight: bold;
-            color: #00d4ff;
+            color: #77e8ffff;
         }
     </style>
 </head>
 <body>
 
-<!-- HEADER que me pasaste -->
-<div>
-    <header class="sticky-top bg-primary">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="../index.php">Mi Web</a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="menu">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" href="../index.php">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="biblioteca.php">Biblioteca</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Pag</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Pag</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-</div>
 
 <!-- CONTENIDO -->
 <div class="container">
@@ -90,7 +68,7 @@ $precio = 10.00; // 10 USD por ejemplo
 </div>
 
 <!-- PayPal SDK -->
-<script src="https://www.paypal.com/sdk/js?client-id=TU_CLIENT_ID_SANDBOX&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AdEwrrrKqCwI0E_Pb9mKbwJkH5VELvUatThFVmkfyKx1loqvEwSLYOMEcaQixS7gXpH09uUT7I600G6X&currency=USD"></script>
 
 <script>
 // Crear botón PayPal
