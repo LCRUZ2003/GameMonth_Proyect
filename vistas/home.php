@@ -2,18 +2,18 @@
 <html lang="en">
     <head>
         <?php
-            include '../controladores/home_controlador.php';
-            session_start();
+        include '../controladores/home_controlador.php';
+        //    session_start();
 
-            if (!isset($_SESSION['verificado'])) {
-                echo '<script>
-                        alert("Debes iniciar sesión para acceder a esta página.");
-                        window.location = "vistas/login.php";
-                      </script>';
-                exit();
-            }
+        //    if (!isset($_SESSION['verificado'])) {
+        //        echo '<script>
+        //                alert("Debes iniciar sesión para acceder a esta página.");
+        //                window.location = "vistas/login.php";
+        //             </script>';
+        //        exit();
+         //   }
         ?>
-        <link rel="icon" type="image/x-icon" href="../img/WhatsApp_Image_2025-11-29_at_00.05.29-removebg-preview.ico">
+        <link rel="icon" type="image/x-icon" href="img/WhatsApp_Image_2025-11-29_at_00.05.29-removebg-preview.ico">
         <title>Colmado Gamer</title>
         <meta charset="utf-8" />
         <meta
@@ -119,7 +119,7 @@
 
                     <!-- Repita este bloque .col para agregar más productos lado a lado -->
                 </div>
-            
+            <a href="viewgame.php?id=<?= $juego['id'] ?>">Ver juego</a>
             </div>
 
         </main>
