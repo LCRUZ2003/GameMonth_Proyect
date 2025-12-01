@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>AdminPage</title>
+    <link rel="icon" type="image/x-icon" href="../img/WhatsApp_Image_2025-11-29_at_00.05.29-removebg-preview.ico">
 
     <style>
         body { 
