@@ -5,8 +5,8 @@ header('Content-Type: application/json; charset=utf-8');
 session_start();
 
 require_once __DIR__ . '/../modelos/conexion.php';
-require_once __DIR__ . '/../modelos/pagos_modelo.php';
-require_once __DIR__ . '/../modelos/suscripciones_modelo.php';
+require_once __DIR__ . '/../modelos/PagosModelo.php';
+require_once __DIR__ . '/../modelos/SuscripcionesModelos.php';
 
 try {
     // Leer JSON crudo enviado desde el frontend
@@ -20,15 +20,21 @@ try {
     }
 
     // Si el frontend no envía userID, intentar usar usuario_pendiente en sesión
-    $userID_from_json = isset($data['userID']) ? (int)$data['userID'] : null;
-    $userID_session = isset($_SESSION['usuario_pendiente']) ? (int)$_SESSION['usuario_pendiente'] : null;
+    $userID_from_json = isset($data['userID']) ? intval($data['userID']) : null;
+    $userID_session = isset($_SESSION['usuario_pendiente']) ? intval($_SESSION['usuario_pendiente']) : null;
 
     // Preferir userID de la sesión pendiente si existe (registro reciente)
     $userID = $userID_session ?: $userID_from_json;
 
-    if (!$userID) {
+    // Validar que userID es un número válido
+    if (!$userID || $userID <= 0) {
         http_response_code(422);
-        echo json_encode(['status' => 'error', 'message' => 'No se recibió userID ni existe usuario_pendiente en sesión.']);
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'userID inválido o no disponible',
+            'received_userID' => $userID_from_json,
+            'session_userID' => $userID_session
+        ]);
         exit;
     }
 
@@ -122,18 +128,34 @@ try {
 
     // 1) Crear suscripción y obtener id
     $id_suscripcion = SuscripcionesModelo::crearSuscripcion($userID, $monto);
-    if (!$id_suscripcion) {
+    if ($id_suscripcion === false || !$id_suscripcion || $id_suscripcion <= 0) {
         http_response_code(500);
-        echo json_encode(['status' => 'error', 'message' => 'No se pudo crear la suscripción.']);
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'No se pudo crear la suscripción. Verifica conexión BD y usuario válido.',
+            'debug' => [
+                'userID' => $userID,
+                'monto' => $monto,
+                'suscripcion_id' => $id_suscripcion
+            ]
+        ]);
         exit;
     }
 
     // 2) Registrar pago
     $paymentSaved = PagosModelo::registrarPago($userID, $id_suscripcion, $monto, $transactionID);
     if (!$paymentSaved) {
-        // opcional: eliminar suscripción si tu modelo lo permite
         http_response_code(500);
-        echo json_encode(['status' => 'error', 'message' => 'No se pudo registrar el pago.']);
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'No se pudo registrar el pago en la BD.',
+            'debug' => [
+                'userID' => $userID,
+                'id_suscripcion' => $id_suscripcion,
+                'monto' => $monto,
+                'transactionID' => $transactionID
+            ]
+        ]);
         exit;
     }
 

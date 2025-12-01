@@ -58,8 +58,8 @@ paypal.Buttons({
         body: JSON.stringify({
             orderID: data.orderID,
             transactionID: details.id,
-            userID: "<?= $userId ?>",
-            monto: "<?= $precio ?>"
+            userID: parseInt("<?= $userId ?>"),  // Convertir a número entero
+            monto: parseFloat("<?= $precio ?>")  // Convertir a número decimal
         })
         })
         .then(r => r.json())

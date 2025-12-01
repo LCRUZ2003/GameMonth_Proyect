@@ -12,7 +12,10 @@ class registro_modelo{
         $stmt->bindParam(5, $usuario, PDO::PARAM_STR);
         $stmt->bindParam(6, $password, PDO::PARAM_STR);
         
-        return $stmt->execute();
+        if ($stmt->execute()) {
+            return $db->lastInsertId();  // Retorna el ID del usuario insertado
+        }
+        return false;
     }
 
 

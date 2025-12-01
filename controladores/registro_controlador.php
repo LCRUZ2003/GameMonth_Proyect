@@ -43,7 +43,7 @@ class registro_controlador {
             // Enviar a página de suscripción
             echo '<script>
                     alert("Cuenta creada. Ahora debes suscribirte para activar tu cuenta.");
-                    window.location="../vistas/suscripcion.php";
+                    window.location="../vistas/pagar.php";
                   </script>';
         } else {
             echo '<script>
