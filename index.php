@@ -1,5 +1,11 @@
 <?php
 session_start();
+if(isset($_SESSION["rol"]) && $_SESSION["rol"] == 'admin'){
+    echo '<script>
+        window.location = "vistas/adminpage.php";
+    </script>';
+}else
+{
     if(isset($_SESSION["verificado"])){
         echo '<script>
             window.location = "vistas/home.php";
@@ -11,5 +17,7 @@ session_start();
         </script>';
         
     }
+
+}
 ?>
 <h1>Hola :d</h1>

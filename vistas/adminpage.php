@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+    <?php
+        session_start();
+        // Si no está logueado o no es admin, redirige
+        if(!isset($_SESSION['verificado']) || $_SESSION['rol'] !== 'admin'){
+            header("Location: login.php");
+            exit;
+        }
+    ?>
 <head>
     <meta charset="UTF-8">
     <title>AdminPage</title>
@@ -65,6 +73,7 @@
     <a href="reportejuegos.php">Reporte Juegos</a>
     <a href="registrarclienteadmin.php">Administrar Cliente</a>
     <a href="registrarjuegoadmin.php">Administrar Juegos</a>
+    <a href="logout.php">Cerrar Sesión</a>
 </nav>
 
 <img src="../img/colmadogamer.jpg" alt="Imagen Logo" width="570px">

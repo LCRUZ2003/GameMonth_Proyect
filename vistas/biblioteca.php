@@ -17,6 +17,7 @@ $videojuegos = BibliotecaControlador::mostrarLibros();
     <meta charset="UTF-8">
     <title>Mi Biblioteca</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/colores_globales.css">
     <link rel="icon" type="image/x-icon" href="../img/WhatsApp_Image_2025-11-29_at_00.05.29-removebg-preview.ico">
 
     <style>
@@ -62,7 +63,7 @@ $videojuegos = BibliotecaControlador::mostrarLibros();
     <header class="sticky-top bg-primary">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">Mi Web</a>
+                <a class="navbar-brand" href="home.php">Colmado Gamer</a>
     
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
                     <span class="navbar-toggler-icon"></span>
@@ -72,8 +73,7 @@ $videojuegos = BibliotecaControlador::mostrarLibros();
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
                         <li class="nav-item"><a class="nav-link active" href="biblioteca.php">Mi Biblioteca</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Pag</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Pag</a></li>
+                        <li class="nav-item"><a class="nav-link" href="logout.php">Salir :C</a></li>
                     </ul>
                 </div>
             </div>
@@ -83,7 +83,7 @@ $videojuegos = BibliotecaControlador::mostrarLibros();
 
 <!-- CONTENIDO -->
 <div class="container py-4">
-    <h2 class="mb-4">🎮 Mi Biblioteca de Juegos</h2>
+    <h2 class="mb-4">Mi Biblioteca de Juegos</h2>
 
     <div class="row g-4">
 
@@ -92,13 +92,13 @@ $videojuegos = BibliotecaControlador::mostrarLibros();
             
                 <div class="col-6 col-md-4 col-lg-3">
                     <div class="game-card p-2">
-                        <img src="../img/juegos/<?php echo $juego['portada']; ?>" class="game-img" alt="Portada">
+                        <img src="../img/<?php echo htmlspecialchars($juego['portada'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="game-img" alt="Portada">
 
                         <div class="p-2">
-                            <div class="game-title"><?php echo $juego['titulo']; ?></div>
-                            <div class="game-genre"><?php echo $juego['genero']; ?></div>
+                            <div class="game-title"><?php echo htmlspecialchars($juego['titulo'] ?? 'Sin título', ENT_QUOTES, 'UTF-8'); ?></div>
+                            <div class="game-genre"><?php echo htmlspecialchars($juego['genero'] ?? 'Sin género', ENT_QUOTES, 'UTF-8'); ?></div>
 
-                            <a href="juego.php?id=<?php echo $juego['id']; ?>" 
+                            <a href="viewgame.php?id=<?php echo intval($juego['id'] ?? 0); ?>" 
                                class="btn btn-sm btn-primary mt-2 w-100">
                                 Ver juego
                             </a>

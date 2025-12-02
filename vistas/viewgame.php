@@ -14,6 +14,7 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="css/colores_globales.css">
   <style>
         body {
             background-color: #192443ff;
@@ -106,7 +107,9 @@ try {
 }
 ?>
 <body class="p-4">
-
+    <?php
+    include_once "header.php";
+    ?>
     <!-- Logo -->
     <div class="mb-4">
         <a href="home.php"><img src="img/logo.png" width="130"></a>

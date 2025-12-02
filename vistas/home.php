@@ -27,6 +27,7 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="css/colores_globales.css">
     </head>
 
     <body>
@@ -98,42 +99,43 @@
 
 
         <main>            
-            <div class="container py-4">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3">
-                <?php
-                $control = new HomeControlador();
-                $juegos = $control->mostrarDatos();
-                foreach ($juegos as $juego) {
-                    $id = intval($juego['id']);
-                    $portada = htmlspecialchars($juego['portada'], ENT_QUOTES, 'UTF-8');
-                    $titulo = htmlspecialchars($juego['titulo'], ENT_QUOTES, 'UTF-8');
-                    $cal = intval($juego['calificacion']);
-                    $stars = str_repeat('★', $cal) . str_repeat('☆', max(0, 5 - $cal));
+            <div class="container-fluid py-5">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 justify-content-center">
+                        <?php
+                        $control = new HomeControlador();
+                        $juegos = $control->mostrarDatos();
+                        foreach ($juegos as $juego) {
+                            $id = intval($juego['id']);
+                            $portada = htmlspecialchars($juego['portada'], ENT_QUOTES, 'UTF-8');
+                            $portada = '../img/' . $portada;  // Agregar ruta de imagen
+                            $titulo = htmlspecialchars($juego['titulo'], ENT_QUOTES, 'UTF-8');
+                            $cal = intval($juego['calificacion']);
+                            $stars = str_repeat('★', $cal) . str_repeat('☆', max(0, 5 - $cal));
 
-                    echo '<div class="col m-2">
-                        <div class="h-100 m-3 ">
-                        <a href="viewgame.php?id=' . $id . '" class="d-block text-decoration-none text-reset">
-                            <img src="' . $portada . '" class="card-img-top custom-img" alt="Producto">
-                            <div class="card-body m-0 p-0">
-                            <div class="elemento-centro">
-                                <h5 class="card-title d-inline nombre-juego m-1 p-0">' . $titulo . '</h5>
-                                <p class="d-inline m-0">' . $stars . '</p>
-                            </div>
-                            <div class="elemento-centro">
-                                <p class="d-inline m-2">$' . "HOLA" . '</p>
-                                <img class="icono-naranja d-inline ms-auto m-0 mt-2" width="30" height="30" src="https://img.icons8.com/sf-regular-filled/48/add-shopping-cart.png" alt="add-shopping-cart" style="fill: red;" />
-                            </div>
-                            </div>
-                        </a>
+                            echo '<div class="col">
+                                <a href="viewgame.php?id=' . $id . '" class="d-block text-decoration-none text-reset h-100">
+                                    <div class="game-card h-100">
+                                        <div class="game-card-image">
+                                            <img src="' . $portada . '" alt="' . $titulo . '">
+                                        </div>
+                                        <div class="game-card-body">
+                                            <h5 class="game-title">' . $titulo . '</h5>
+                                            <div class="game-rating">' . $stars . '</div>
+                                            <div class="game-footer">
+                                                <span class="game-price">$' . $juego["estado"] . '</span>
+                                                <img class="cart-icon" width="24" height="24" src="https://img.icons8.com/sf-regular-filled/48/add-shopping-cart.png" alt="add-shopping-cart" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>';
+                        }   
+                        ?>
                         </div>
-                    </div>';
-                }   
-                ?>
-                    
-
-                    <!-- Repita este bloque .col para agregar más productos lado a lado -->
+                    </div>
                 </div>
-            
             </div>
 
         </main>
@@ -143,23 +145,95 @@
         </footer>
 
         <style>
-        .elemento-centro{
-            justify-content: right;
+        .game-card {
+            background: linear-gradient(135deg, #3a4a6e 0%, #2d3e5f 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(231, 169, 35, 0.3);
             display: flex;
+            flex-direction: column;
         }
-        .nombre-juego {
-            font-size: 10px;
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-card-image {
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .game-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover .game-card-image img {
+            transform: scale(1.05);
+        }
+
+        .game-card-body {
+            padding: 12px 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .game-title {
+            font-size: 13px;
             font-weight: bold;
-            margin: 0;
-            padding: 0;
+            color: #ffffff;
+            margin: 0 0 8px 0;
+            line-height: 1.3;
+            white-space: normal;
         }
-        .custom-img {
-            width: 200px;
-            height: 115px;
-            object-fit: cover; /* mantiene la imagen recortada sin deformarse */
+
+        .game-rating {
+            font-size: 12px;
+            color: #e7a923;
+            margin-bottom: 10px;
         }
-        .icono-naranja {
-        filter: invert(53%) sepia(95%) saturate(3103%) hue-rotate(1deg) brightness(100%) contrast(105%);
+
+        .game-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid rgba(231, 169, 35, 0.2);
+        }
+
+        .game-price {
+            font-weight: bold;
+            color: #fe952d;
+            font-size: 14px;
+        }
+
+        .cart-icon {
+            filter: invert(45%) sepia(75%) saturate(2500%) hue-rotate(4deg) brightness(105%) contrast(110%);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.15);
+        }
+
+        @media (max-width: 576px) {
+            .game-card-image {
+                height: 120px;
+            }
+            .game-title {
+                font-size: 12px;
+            }
         }
         </style>
 

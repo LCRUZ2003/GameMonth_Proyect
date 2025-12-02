@@ -15,6 +15,7 @@
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style_sing.css">
+    <link rel="stylesheet" href="css/colores_globales.css">
 </head>
 <body>
 

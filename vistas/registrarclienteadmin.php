@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+        <?php
+        session_start();
+        // Si no está logueado o no es admin, redirige
+        if(!isset($_SESSION['verificado']) || $_SESSION['rol'] !== 'admin'){
+            header("Location: login.php");
+            exit;
+        }
+    ?>
     <link rel="icon" type="image/x-icon" href="../img/WhatsApp_Image_2025-11-29_at_00.05.29-removebg-preview.ico">
 
     <meta charset="UTF-8">

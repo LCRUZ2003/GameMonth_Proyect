@@ -15,6 +15,7 @@ class LoginControler
             $_SESSION['verificado'] = 'si';
             $_SESSION['user_id'] = $usuarioRe['id'];
             $_SESSION['username'] = $usuarioRe['usuario'];
+            $_SESSION['rol'] = $usuarioRe['rol'];
 
             echo '<script>
                     window.location = "../index.php";
